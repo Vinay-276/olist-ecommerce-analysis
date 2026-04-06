@@ -84,7 +84,7 @@ However, the business lacks clarity on:
 ## 📊 Dashboard Preview
 
 ### 🔹 Overview
-![image alt]https://github.com/Vinay-276/olist-ecommerce-analysis/blob/1cd1f27ff3648e36cd6dd59f55998990c1692ed8/Overview%20page%201.png
+![image alt]https://github.com/Vinay-276/olist-ecommerce-analysis/blob/main/Overview%20page%201.png?raw=true
 
 
 ### 🔹 Delivery Analysis
