@@ -84,24 +84,24 @@ However, the business lacks clarity on:
 ## 📊 Dashboard Preview
 
 ### 🔹 Overview
-![image alt]"C:\Users\Vinay\Pictures\Overview page 1.png"
+![image alt]https://github.com/Vinay-276/olist-ecommerce-analysis/blob/1cd1f27ff3648e36cd6dd59f55998990c1692ed8/Overview%20page%201.png
 
 
 ### 🔹 Delivery Analysis
 
-![Delivery](images/page2_delivery.png)
+![image alt]https://github.com/Vinay-276/olist-ecommerce-analysis/blob/1cd1f27ff3648e36cd6dd59f55998990c1692ed8/Delivery%20Analysis%20page%202.png
 
 ### 🔹 Customer Analysis
 
-![Customer](images/page3_customer.png)
+![image alt]https://github.com/Vinay-276/olist-ecommerce-analysis/blob/1cd1f27ff3648e36cd6dd59f55998990c1692ed8/Customer%20Analysis%20page%203.png
 
 ### 🔹 Seller Performance
 
-![Seller](images/page4_seller.png)
+![image alt]https://github.com/Vinay-276/olist-ecommerce-analysis/blob/1cd1f27ff3648e36cd6dd59f55998990c1692ed8/Seller%20Performance%20page%204.png
 
 ### 🔹 Payment Analysis
 
-![Payment](images/page5_payment.png)
+![image alt]https://github.com/Vinay-276/olist-ecommerce-analysis/blob/1cd1f27ff3648e36cd6dd59f55998990c1692ed8/Payment%20Analysis%20page%205%20.png
 
 ---
 
@@ -117,7 +117,7 @@ images/ → Dashboard screenshots
 ## 📊 Power BI File
 
 Download PBIX file here:
-(Add your Google Drive link here)
+"C:\Users\Vinay\Downloads\olist 2.pbix"
 
 ---
 
