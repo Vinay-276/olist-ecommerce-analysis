@@ -1611,11 +1611,215 @@ Business Insights
 
 
 
+    Who are the Top 10 Revenue Generating Sellers?
+
+WITH SellerRevenue AS (
+    SELECT
+        seller_id,
+        ROUND(SUM(price),2) AS Revenue
+    FROM order_items
+    GROUP BY seller_id
+)
+
+SELECT
+    ROW_NUMBER() OVER(ORDER BY Revenue DESC) AS Seller_Rank,
+    seller_id,
+    Revenue
+FROM SellerRevenue;
+Why use ROW_NUMBER()?
+Gives a unique rank (1, 2, 3...).
+Best when you want a top-N list without tied ranks.
+
+
+
+
+    DENSE_RANK()
+Business Question
+
+Rank Product Categories by Revenue
+
+WITH CategoryRevenue AS (
+    SELECT
+        p.product_category_name,
+        ROUND(SUM(oi.price),2) AS Revenue
+    FROM products p
+    JOIN order_items oi
+        ON p.product_id = oi.product_id
+    GROUP BY p.product_category_name
+)
+
+SELECT
+    DENSE_RANK() OVER(ORDER BY Revenue DESC) AS Category_Rank,
+    product_category_name,
+    Revenue
+FROM CategoryRevenue;
+Why use DENSE_RANK()?
+
+If two categories have the same revenue:
+
+Dense Rank
+
+1
+2
+2
+3
+
+No rank is skipped.
 
 
 
 
 
 
+
+
+    Business Question
+
+How did monthly revenue change compared to the previous month?
+
+WITH MonthlyRevenue AS (
+    SELECT
+        DATE_FORMAT(o.order_purchase_timestamp,'%Y-%m') AS Month,
+        ROUND(SUM(p.payment_value),2) AS Revenue
+    FROM orders o
+    JOIN payments p
+        ON o.order_id = p.order_id
+    GROUP BY Month
+)
+
+SELECT
+    Month,
+    Revenue,
+    LAG(Revenue) OVER(ORDER BY Month) AS Previous_Month_Revenue,
+    Revenue -
+    LAG(Revenue) OVER(ORDER BY Month) AS Revenue_Growth
+FROM MonthlyRevenue;
+Business Insight
+
+Shows whether revenue increased or decreased compared with the previous month.
+
+4. LEAD()
+Business Question
+
+Compare current month revenue with the next month
+
+WITH MonthlyRevenue AS (
+    SELECT
+        DATE_FORMAT(o.order_purchase_timestamp,'%Y-%m') AS Month,
+        ROUND(SUM(p.payment_value),2) AS Revenue
+    FROM orders o
+    JOIN payments p
+        ON o.order_id = p.order_id
+    GROUP BY Month
+)
+
+SELECT
+    Month,
+    Revenue,
+    LEAD(Revenue) OVER(ORDER BY Month) AS Next_Month_Revenue
+FROM MonthlyRevenue;
+
+Useful for trend analysis.
+
+5. CTE Example – Top Sellers
+/*=========================================
+Top Revenue Generating Sellers
+=========================================*/
+
+WITH SellerRevenue AS (
+
+SELECT
+
+seller_id,
+
+ROUND(SUM(price),2) AS Revenue
+
+FROM order_items
+
+GROUP BY seller_id
+
+)
+
+SELECT *
+
+FROM SellerRevenue
+
+ORDER BY Revenue DESC
+
+LIMIT 10;
+6. CTE Example – Delivery Performance
+/*=========================================
+Average Delivery Performance by State
+=========================================*/
+
+WITH StateDelivery AS (
+
+SELECT
+
+c.customer_state,
+
+ROUND(AVG(o.delivery_delay),2) AS Average_Delay
+
+FROM customers c
+
+JOIN orders o
+
+ON c.customer_id = o.customer_id
+
+WHERE o.order_status='delivered'
+
+GROUP BY c.customer_state
+
+)
+
+SELECT *
+
+FROM StateDelivery
+
+ORDER BY Average_Delay DESC;
+7. CTE Example – Customer Rating
+/*=========================================
+Average Rating by Delay Category
+=========================================*/
+
+WITH ReviewAnalysis AS (
+
+SELECT
+
+CASE
+
+WHEN o.delivery_delay < 0 THEN 'Early'
+
+WHEN o.delivery_delay = 0 THEN 'On Time'
+
+WHEN o.delivery_delay BETWEEN 1 AND 3 THEN '1-3 Days Late'
+
+WHEN o.delivery_delay BETWEEN 4 AND 7 THEN '4-7 Days Late'
+
+ELSE '8+ Days Late'
+
+END AS Delay_Category,
+
+r.review_score
+
+FROM orders o
+
+JOIN reviews r
+
+ON o.order_id = r.order_id
+
+)
+
+SELECT
+
+Delay_Category,
+
+ROUND(AVG(review_score),2) AS Average_Rating
+
+FROM ReviewAnalysis
+
+GROUP BY Delay_Category
+
+ORDER BY Average_Rating DESC;
 
 
